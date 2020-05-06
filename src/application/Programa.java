@@ -16,7 +16,9 @@ public class Programa {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String path="funcionarios.csv";
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Path do arquivo:");
+		String path=sc.nextLine();
 		try(BufferedReader bf = new BufferedReader(new FileReader(path))){
 			List<Funcionario>funcionarios = new ArrayList<>();
 			String linha = bf.readLine();
@@ -25,7 +27,6 @@ public class Programa {
 				funcionarios.add(new Funcionario(dados[0], dados[1],Double.valueOf(dados[2])));
 				linha = bf.readLine();
 			}
-			Scanner sc = new Scanner(System.in);
 			System.out.print("Valor de referencia (para mais): R$ ");
 			Double valor = sc.nextDouble();
 			Comparator<String>comparador = (f1,f2)->f1.toUpperCase().compareTo(f2.toUpperCase());
@@ -34,7 +35,6 @@ public class Programa {
 			emailFunc.forEach(System.out::println);
 			Double soma = funcionarios.stream().filter(f->f.getName().toUpperCase().startsWith("M")).map(f->f.getSalario()).reduce(0.0,(x,y)->x+y);
 			System.out.println("Some dos salario dos funcionario que començam com a letra M: R$ "+String.format("%.2f",soma));
-			sc.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -42,6 +42,7 @@ public class Programa {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		sc.close();
 	}
 
 }
